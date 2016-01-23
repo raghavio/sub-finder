@@ -6,10 +6,17 @@ if (window.File && window.FileList && window.FileReader) {
 
 function init() {
     var inputElement = document.getElementById("input-file");
+    var dragElement = document.getElementById("drop-zone");
+
     inputElement.addEventListener("change", fileSelectHandler, false);
+
+    dragElement.addEventListener("dragover", fileDragHover, false);
+    dragElement.addEventListener("dragleave", fileDragHover, false);
+    dragElement.addEventListener("drop", fileSelectHandler, false);
 }
 
 function fileSelectHandler(e) {
+    fileDragHover(e);  // Changes class name
     var files = e.target.files || e.dataTransfer.files;
     var filesListElement = document.getElementById("files");
     filesListElement.innerHTML = ""; //Clear everything
@@ -19,4 +26,10 @@ function fileSelectHandler(e) {
         listItemElement.className = "list-group-item";
         filesListElement.appendChild(listItemElement);
     }
+}
+
+function fileDragHover(e) {
+    e.stopPropagation();
+    e.preventDefault();
+    e.target.className = (e.type == "dragover" ? "upload-drop-zone drop" : "upload-drop-zone")
 }
