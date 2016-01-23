@@ -106,7 +106,7 @@ function calculateHash(file, callback) {
 function sendHashToServer(file, hash) {
     $.ajax({
         url: "/api/hash",
-        data: {hash: hash, fileName: file.name},
+        data: {hash: hash, fileName: file.name, fileSize: file.size},
         success: showData
     });
 }
