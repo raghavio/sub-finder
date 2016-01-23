@@ -104,12 +104,16 @@ function calculateHash(file, callback) {
 }
 
 function sendHashToServer(file, hash) {
-    addFileToListItem(file);
+    $.ajax({
+        url: "/api/hash",
+        data: {hash: hash, fileName: file.name},
+        success: showData
+    });
 }
 
-function addFileToListItem(file) {
+function showData(data, textStatus, jqXHR) {
     var listItemElement = document.createElement("a");
-    listItemElement.text = file.name;
+    listItemElement.text = data['file'];
     listItemElement.className = "list-group-item";
     document.getElementById("files").appendChild(listItemElement);
 }
