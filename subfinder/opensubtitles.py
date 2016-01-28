@@ -94,7 +94,13 @@ def search_sub(data):
         # We sort the data on the basis of our rating algorithm
         # and sub add date(Assuming the latest sub would be better)
         sorted_data = sorted(data, key=lambda k: (float(k['rating_algo']), k['SubAddDate']), reverse=True)
-        return sorted_data
+
+        # group sorted data by IMDb ids
+        grouped_data = []
+        for key, items in itertools.groupby(sorted_data, operator.itemgetter('IDMovieImdb')):
+            grouped_data.append(list(items))
+
+        return grouped_data
     except Exception as e:
         logging.error("An error occurred while searching sub: %s" % e)
 
