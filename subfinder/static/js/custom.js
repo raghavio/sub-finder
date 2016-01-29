@@ -4,6 +4,8 @@ if (window.File && window.FileList && window.FileReader) {
     alert("Not supported for your browser");
 }
 
+var fileData = [];
+
 function init() {
     var inputElement = document.getElementById("input-file");
     var dragElement = document.getElementById("drop-zone");
@@ -13,6 +15,15 @@ function init() {
     dragElement.addEventListener("dragover", fileDragHover, false);
     dragElement.addEventListener("dragleave", fileDragHover, false);
     dragElement.addEventListener("drop", fileSelectHandler, false);
+    sse();
+}
+
+function sse() {
+    var source = new EventSource('/stream');
+    var files = document.getElementById("files");
+    source.onmessage = function (e) {
+        files.innerHTML += "<div class-'list-group-item'>" + e.data + "</div>";
+    };
 }
 
 function fileSelectHandler(e) {
@@ -21,8 +32,9 @@ function fileSelectHandler(e) {
     var filesListElement = document.getElementById("files");
     filesListElement.innerHTML = ""; //Clear everything
     for (var i = 0, file; file = files[i]; i++) {
-        calculateHash(file, sendHashToServer);
+        calculateHash(file);
     }
+    sendHashToServer();
 }
 
 function fileDragHover(e) {
@@ -39,7 +51,7 @@ function fileDragHover(e) {
  * @param file The file
  * @param callback Calls this callback after calculation
  */
-function calculateHash(file, callback) {
+function calculateHash(file) {
     var HASH_CHUNK_SIZE = 65536, //64 * 1024
         longs = [],
         temp = file.size;
@@ -98,22 +110,11 @@ function calculateHash(file, callback) {
 
     read(0, HASH_CHUNK_SIZE, function () {
         read(file.size - HASH_CHUNK_SIZE, undefined, function () {
-            callback.call(null, file, binl2hex(longs));
+            fileData.push({fileName: file.name, hash: binl2hex(longs), fileSize: file.size});
         });
     });
 }
 
-function sendHashToServer(file, hash) {
-    $.ajax({
-        url: "/api/hash",
-        data: {hash: hash, fileName: file.name, fileSize: file.size},
-        success: showData
-    });
-}
-
-function showData(data, textStatus, jqXHR) {
-    var listItemElement = document.createElement("a");
-    listItemElement.text = data['file'];
-    listItemElement.className = "list-group-item";
-    document.getElementById("files").appendChild(listItemElement);
+function sendHashToServer() {
+    $.post("/api/hash", {'data': fileData});
 }
