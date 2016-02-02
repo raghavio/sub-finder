@@ -1,4 +1,4 @@
-from flask import render_template, request, json, Response
+from flask import render_template, request, json, Response, jsonify
 from subfinder import app
 import opensubtitles
 import requests
@@ -33,7 +33,7 @@ def get_hash():
             imdb[0]['plot'] = imdb_data['Plot']
             imdb[0]['poster'] = imdb_data['Poster']
         result = {'file': file_name, 'data': sub_data}
-        red.publish("sub-data", u'%s' % result['file'])
+        red.publish("sub-data", json.dumps(result))
     return Response(status=204)
 
 
