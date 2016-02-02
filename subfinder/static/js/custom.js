@@ -4,9 +4,12 @@ if (window.File && window.FileList && window.FileReader) {
     alert("Not supported for your browser");
 }
 
-var fileData = [];
-
 function init() {
+
+    window.filesData = {
+        data: []
+    };
+
     var inputElement = document.getElementById("input-file");
     var dragElement = document.getElementById("drop-zone");
 
@@ -32,9 +35,8 @@ function fileSelectHandler(e) {
     var filesListElement = document.getElementById("files");
     filesListElement.innerHTML = ""; //Clear everything
     for (var i = 0, file; file = files[i]; i++) {
-        calculateHash(file);
+        calculateHash(file, i, files.length - 1);
     }
-    sendHashToServer();
 }
 
 function fileDragHover(e) {
@@ -49,9 +51,10 @@ function fileDragHover(e) {
  *
  * http://trac.opensubtitles.org/projects/opensubtitles/wiki/HashSourceCodes
  * @param file The file
- * @param callback Calls this callback after calculation
+ * @param currentFileInLoop Position of file in loop. When this equals totalFiles we send data to server.
+ * @param totalFiles Total number of files.
  */
-function calculateHash(file) {
+function calculateHash(file, currentFileInLoop, totalFiles) {
     var HASH_CHUNK_SIZE = 65536, //64 * 1024
         longs = [],
         temp = file.size;
@@ -110,11 +113,14 @@ function calculateHash(file) {
 
     read(0, HASH_CHUNK_SIZE, function () {
         read(file.size - HASH_CHUNK_SIZE, undefined, function () {
-            fileData.push({fileName: file.name, hash: binl2hex(longs), fileSize: file.size});
+            filesData.data.push({"fileName": file.name, "hash": binl2hex(longs), "fileSize": file.size});
+            console.log(JSON.stringify(filesData));
+            if (currentFileInLoop == totalFiles)
+                sendHashToServer();
         });
     });
 }
 
 function sendHashToServer() {
-    $.post("/api/hash", {'data': fileData});
+    $.post('/api/hash', {'data': JSON.stringify(filesData)});
 }
