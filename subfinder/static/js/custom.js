@@ -4,6 +4,7 @@ if (window.File && window.FileList && window.FileReader) {
     alert("Not supported for your browser");
 }
 
+
 function init() {
 
     window.filesData = {
@@ -18,22 +19,37 @@ function init() {
     dragElement.addEventListener("dragover", fileDragHover, false);
     dragElement.addEventListener("dragleave", fileDragHover, false);
     dragElement.addEventListener("drop", fileSelectHandler, false);
-    sse();
-}
 
-function sse() {
-    var source = new EventSource('/stream');
-    var files = document.getElementById("files");
-    source.onmessage = function (e) {
-        files.innerHTML += "<div class-'list-group-item'>" + e.data + "</div>";
-    };
+
+    var app = angular.module('sub-finder', []).filter('split', function () {
+        return function (input, splitChar) {
+            // do some bounds checking here to ensure it has that index
+            return input.split(splitChar);
+        }
+    });
+
+    app.controller('FilesController', ['$scope', function ($scope) {
+        // the last received msg
+        $scope.files = [];
+
+        // handles the callback from the received event
+        var handleCallback = function (e) {
+            $scope.$apply(function () {
+                $scope.files.push(JSON.parse(e.data));
+            });
+        };
+
+        var source = new EventSource('http://127.0.0.1:8000/stream');
+        source.addEventListener('message', handleCallback, false);
+    }]);
+
 }
 
 function fileSelectHandler(e) {
     fileDragHover(e);  // Changes class name
     var files = e.target.files || e.dataTransfer.files;
     var filesListElement = document.getElementById("files");
-    filesListElement.innerHTML = ""; //Clear everything
+    //filesListElement.innerHTML = ""; //Clear everything
     for (var i = 0, file; file = files[i]; i++) {
         calculateHash(file, i, files.length - 1);
     }
@@ -114,7 +130,6 @@ function calculateHash(file, currentFileInLoop, totalFiles) {
     read(0, HASH_CHUNK_SIZE, function () {
         read(file.size - HASH_CHUNK_SIZE, undefined, function () {
             filesData.data.push({"fileName": file.name, "hash": binl2hex(longs), "fileSize": file.size});
-            console.log(JSON.stringify(filesData));
             if (currentFileInLoop == totalFiles)
                 sendHashToServer();
         });
@@ -122,5 +137,5 @@ function calculateHash(file, currentFileInLoop, totalFiles) {
 }
 
 function sendHashToServer() {
-    $.post('/api/hash', {'data': JSON.stringify(filesData)});
+    $.post('http://127.0.0.1:8000/api/hash', {'data': JSON.stringify(filesData)});
 }

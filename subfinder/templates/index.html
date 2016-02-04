@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" ng-app="sub-finder">
 <head>
     <meta charset="UTF-8">
     <!-- Latest compiled and minified CSS -->
@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="../static/css/custom.css">
     <title>SubFinder</title>
 </head>
-<body>
+<body ng-controller="FilesController">
 
 <div class="container">
     <div class="panel panel-default">
@@ -41,63 +41,47 @@
             <!-- Upload Finished -->
             <div class="js-upload-finished">
                 <h3>Files added</h3>
+                <ul id="files" class="list-group">
 
-                <div id="files" class="list-group">
-                    <div class="list-group-item media" style="overflow: visible;">
-                <span class="media-left">
-                    <img class="media-object" style="margin-right: 10px"
-                         src="http://ia.media-imdb.com/images/M/MV5BMTQ0MzI1NjYwOF5BMl5BanBnXkFtZTgwODU3NDU2MTE@._V1._CR93,97,1209,1861_SX89_AL_.jpg_V1_SX300.jpg">
-                </span>
+                    <li class="list-group-item" id="list-item" style="overflow: visible;" ng-repeat="result in files">
+                        <span class="media-left">
+                            <img class="media-object" style="height: 250px; width: 180px; padding: 2px;"
+                                 ng-src="{{ result.data[0][0]['Poster'] }}">
+                        </span>
 
                         <div class="media-body" style="overflow: visible;">
                             <div class="pull-right">
-                                <span class="label label-info">TV Series</span>
-                                <span class="label label-info">44 min</span>
-                                <span class="label label-info">Comedy</span>
-                                <span class="label label-info">Drama</span>
+                                <span class="label label-info" ng-if="result.data[0][0]['MovieKind']=='episode'">TV Series</span>
+                                <span class="label label-info" ng-if="result.data[0][0]['MovieKind']=='movie'">Movie</span>
+                                <span class="label label-info">{{ result.data[0][0]['Runtime'] }}</span>
+                                <span ng-repeat="genre in result.data[0][0]['Genre'] | split:', '"><span class="label label-info">{{ genre }}</span> </span>
                             </div>
                             <div class="list-group-item-heading">
-                                <h4>[1983] Star Wars/ Episode VI - Return of the Jedi.avi</h4>
-                                <h4>Star Wars: Episode VI - Return of the Jedi
-                                    <small>1983</small>
+                                <h4>{{ result.file }}</h4>
+                                <h4>{{ result.data[0][0]['Title'] }}
+                                    <small>{{ result.data[0][0]['Year'] }}</small>
                                 </h4>
                             </div>
 
-                            <p class="list-group-item-text">Darth Vader and the Empire are building a new,
-                                indestructible
-                                Death Star. Meanwhile, Han Solo has been imprisoned, and Luke Skywalker has sent R2-D2
-                                and
-                                C-3PO to try and free him. Princess Leia - disguised as a bounty hunter - and Chewbacca
-                                go
-                                along as well. The final battle takes place on the moon of Endor, with its natural
-                                inhabitants, the Ewoks, lending a hand to the Rebels. Will Darth Vader and the Dark Side
-                                overcome the Rebels and take over the universe?
-                            </p>
-                            <b>Cast: </b> Simon Bird, James Buckley, Blake Harrison <br>
+                            <p class="list-group-item-text">{{ result.data[0][0]['Plot'] }}</p>
+                            <b>Cast: </b> {{ result.data[0][0]['Actors'] }} <br>
                             <!-- Split button -->
                             <div class="pull-right btn-group">
-                                <button type="button" class="btn btn-success">Download</button>
+                                <a href="{{ result.data[0][0]['SubDownload'][0] }}" type="button" class="btn btn-success">Download</a>
                                 <button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown"
                                         aria-haspopup="true" aria-expanded="false">
                                     <span class="caret"></span>
                                     <span class="sr-only">Toggle Dropdown</span>
                                 </button>
                                 <ul class="dropdown-menu">
-                                    <li><a target="_blank"
-                                           href="http://dl.opensubtitles.org/en/download/sub/src-api/vrf-f5180ba9/sid-7fm5a1fkhogvr54saqfoobe4s4/6221140">Action</a>
+                                    <li ng-repeat="subtitles in result.data[0][0]['SubDownload']">
+                                        <a ng-if="!$first" target="_blank" href="{{ subtitles }}">Subtitle #{{ $index+1 }}</a>
                                     </li>
-                                    <li><a target="_blank"
-                                           href="http://dl.opensubtitles.org/en/download/sub/src-api/vrf-f5180ba9/sid-7fm5a1fkhogvr54saqfoobe4s4/6221140">Another
-                                        action</a></li>
-                                    <li><a href="asdf">Something else here</a></li>
-                                    <li role="separator" class="divider"></li>
-                                    <li><a href="#">Separated link</a></li>
                                 </ul>
                             </div>
                         </div>
-                        <hr>
-                    </div>
-                </div>
+                    </li>
+                </ul>
             </div>
         </div>
     </div>
@@ -108,6 +92,7 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"
             integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS"
             crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.9/angular.min.js"></script>
     <script src="../static/js/custom.js"></script>
 </body>
 </html>
