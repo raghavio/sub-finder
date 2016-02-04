@@ -11,6 +11,8 @@ function init() {
         data: []
     };
 
+    window.totalFiles = undefined;
+
     var inputElement = document.getElementById("input-file");
     var dragElement = document.getElementById("drop-zone");
 
@@ -36,6 +38,7 @@ function init() {
         var handleCallback = function (e) {
             $scope.$apply(function () {
                 $scope.files.push(JSON.parse(e.data));
+                updateProgressBar();
             });
         };
 
@@ -137,5 +140,23 @@ function calculateHash(file, currentFileInLoop, totalFiles) {
 }
 
 function sendHashToServer() {
+    window.totalFiles = filesData.data.length;
     $.post('http://127.0.0.1:8000/api/hash', {'data': JSON.stringify(filesData)});
+}
+
+/**
+ * Updates the progress bar.
+ * Gets called every time we get data from server.
+ */
+function updateProgressBar() {
+    var progressBar = $("#progress-bar");
+    var parentWidth = +$(".progress").width();
+    var newWidth = Math.min(+progressBar.width() + Math.ceil(parentWidth / totalFiles), parentWidth);
+    var percentage = newWidth / parentWidth * 100;
+
+    progressBar.width(newWidth);
+    progressBar.attr("aria-valuenow", percentage);
+    $("#progress-bar-span").html(percentage + "% Complete");
+    if (newWidth == parentWidth)
+        progressBar.removeClass("active");
 }
