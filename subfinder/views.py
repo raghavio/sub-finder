@@ -15,14 +15,14 @@ def event_stream():
     pubsub.subscribe('sub-data')
     # TODO: handle client disconnection.
     for message in pubsub.listen():
-        yield 'data: %s\n\n' % message['data']
+        if message['data'] != 1:
+            yield 'data: %s\n\n' % message['data']
 
 
 @app.route("/api/hash", methods=['POST'])
 def get_hash():
     data = json.loads(request.form['data'])
     for fileData in data['data']:
-        print fileData
         hash = fileData['hash']
         file_name = fileData['fileName']
         file_size = fileData['fileSize']
@@ -30,8 +30,7 @@ def get_hash():
         sub_data = opensubtitles.search_sub(search_data)
         for imdb in sub_data:
             imdb_data = _get_imdb_data(imdb[0]['IDMovieImdb'])
-            imdb[0]['plot'] = imdb_data['Plot']
-            imdb[0]['poster'] = imdb_data['Poster']
+            imdb[0].update(imdb_data)
         result = {'file': file_name, 'data': sub_data}
         red.publish("sub-data", json.dumps(result))
     return Response(status=204)
@@ -44,7 +43,7 @@ def stream():
 
 def _get_imdb_data(imdb_id):
     imdb_id = "tt" + "%07d" % int(imdb_id)
-    payload = {"i": imdb_id, "plot": "full"}
+    payload = {"i": imdb_id}
     r = requests.get("http://www.omdbapi.com", params=payload)
     imdb_data = r.json()
     return imdb_data
