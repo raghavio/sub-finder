@@ -68,15 +68,18 @@
                             <b>Cast: </b> {{ result.data[0][0]['Actors'] }} <br>
                             <!-- Split button -->
                             <div class="pull-right btn-group">
-                                <a href="{{ result.data[0][0]['SubDownload'][0] }}" type="button" class="btn btn-success">Download</a>
+                                <a href="{{ result.data[0][0]['SubDownload'][0] }}" type="button"
+                                   class="btn btn-success">Download</a>
                                 <button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown"
-                                        aria-haspopup="true" aria-expanded="false">
+                                        aria-haspopup="true" aria-expanded="false"
+                                        ng-if="result.data[0][0]['SubDownload'].length > 1">
                                     <span class="caret"></span>
                                     <span class="sr-only">Toggle Dropdown</span>
                                 </button>
-                                <ul class="dropdown-menu">
+                                <ul class="dropdown-menu" ng-if="result.data[0][0]['SubDownload'].length > 1">
                                     <li ng-repeat="subtitles in result.data[0][0]['SubDownload']">
-                                        <a ng-if="!$first" target="_blank" href="{{ subtitles }}">Subtitle #{{ $index+1 }}</a>
+                                        <a ng-if="!$first" target="_blank" href="{{ subtitles }}">Subtitle
+                                            #{{ $index+1 }}</a>
                                     </li>
                                 </ul>
                             </div>
