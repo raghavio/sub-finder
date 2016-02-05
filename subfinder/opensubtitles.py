@@ -24,7 +24,6 @@ import operator
 import itertools
 import xmlrpclib
 import logging
-import pprint
 
 server_url = "http://api.opensubtitles.org/xml-rpc"
 user_agent = "OSTestUserAgent"  # Test user agent, you should request a new one.
@@ -101,14 +100,13 @@ def search_sub(data):
         for i, movie in enumerate(grouped_data):
             # We sort the data on the basis of our rating algorithm
             # and sub add date(Assuming the latest sub would be better)
-            sorted_data = sorted(data, key=lambda k: (float(k['rating_algo']), k['SubAddDate']), reverse=True)
+            sorted_data = sorted(movie, key=lambda k: (float(k['rating_algo']), k['SubAddDate']), reverse=True)
 
             movie_data = sorted_data[0]
             movie_data['SubDownload'] = []
             for files in sorted_data:
                 movie_data['SubDownload'].append(files['SubDownloadLink'])
             grouped_data[i] = [movie_data]
-
         return grouped_data
     except Exception as e:
         logging.error("An error occurred while searching sub: %s" % e)
