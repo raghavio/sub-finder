@@ -28,10 +28,13 @@ def get_hash():
         file_size = fileData['fileSize']
         search_data = [{'moviehash': hash, 'moviebytesize': file_size, 'sublanguageid': 'eng'}]
         sub_data = opensubtitles.search_sub(search_data)
-        for imdb in sub_data:
-            imdb_data = _get_imdb_data(imdb[0]['IDMovieImdb'])
-            imdb[0].update(imdb_data)
-        result = {'file': file_name, 'data': sub_data}
+        if sub_data:
+            for imdb in sub_data:
+                imdb_data = _get_imdb_data(imdb[0]['IDMovieImdb'])
+                imdb[0].update(imdb_data)
+            result = {'file': file_name, 'data': sub_data}
+        else:
+            result = {'file': file_name, 'error': "Could not find subtitle"}
         red.publish("sub-data", json.dumps(result))
     return Response(status=204)
 

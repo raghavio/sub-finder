@@ -37,7 +37,12 @@ function init() {
         // handles the callback from the received event
         var handleCallback = function (e) {
             $scope.$apply(function () {
-                $scope.files.push(JSON.parse(e.data));
+                var data = JSON.parse(e.data);
+                var isError = false;
+                if ("error" in data)
+                    isError = true;
+                else
+                    $scope.files.push(data);
                 updateProgressBar();
             });
         };
