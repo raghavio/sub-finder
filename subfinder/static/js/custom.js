@@ -23,7 +23,7 @@ function init() {
     dragElement.addEventListener("drop", fileSelectHandler, false);
 
 
-    var app = angular.module('sub-finder', []).filter('split', function () {
+    /*var app = angular.module('sub-finder', []).filter('split', function () {
         return function (input, splitChar) {
             // do some bounds checking here to ensure it has that index
             return input.split(splitChar);
@@ -47,17 +47,15 @@ function init() {
             });
         };
 
-        var source = new EventSource('http://127.0.0.1:8000/stream');
+        var source = new EventSource('/stream');
         source.addEventListener('message', handleCallback, false);
-    }]);
+    }]); */
 
 }
 
 function fileSelectHandler(e) {
     fileDragHover(e);  // Changes class name
     var files = e.target.files || e.dataTransfer.files;
-    var filesListElement = document.getElementById("files");
-    //filesListElement.innerHTML = ""; //Clear everything
     for (var i = 0, file; file = files[i]; i++) {
         calculateHash(file, i, files.length - 1);
     }
@@ -146,7 +144,15 @@ function calculateHash(file, currentFileInLoop, totalFiles) {
 
 function sendHashToServer() {
     window.totalFiles = filesData.data.length;
-    $.post('http://127.0.0.1:8000/api/hash', {'data': JSON.stringify(filesData)});
+    var f = document.createElement("form");
+    f.setAttribute('method',"POST");
+    var i = document.createElement("input");
+    i.setAttribute('type',"text");
+    i.setAttribute('name', "data");
+    i.setAttribute('value', JSON.stringify(filesData));
+    f.appendChild(i);
+    document.body.appendChild(f);
+    f.submit();
 }
 
 /**

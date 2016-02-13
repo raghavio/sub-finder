@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" ng-app="sub-finder">
+<html lang="en" >
 <head>
     <meta charset="UTF-8">
     <!-- Latest compiled and minified CSS -->
@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="../static/css/custom.css">
     <title>SubFinder</title>
 </head>
-<body ng-controller="FilesController">
+<body>
 
 <div class="container">
     <div class="panel panel-default">
@@ -43,69 +43,88 @@
             <div class="js-upload-finished">
                 <h3>Files added</h3>
                 <ul id="files" class="list-group">
-
-                    <li class="list-group-item" id="list-item" style="overflow: visible;" ng-repeat="result in files" ng-init='this["data-index"+$index] = 0'>
+                    {% for file in files %}
+                        <li class="list-group-item" id="list-item" style="overflow: visible;">
                         <span class="media-left">
                             <img class="media-object" style="height: 250px; width: 180px; padding: 2px;"
-                                 ng-src="{{ result.data[this['data-index'+$index]][0]['Poster'] }}">
+                                 src="{{ file['data'][0][0]['Poster'] }}">
                         </span>
 
-                        <div class="media-body" style="overflow: visible;">
-                            <div class="pull-right">
-                                <span class="label label-info" ng-if="result.data[this['data-index'+$index]][0]['MovieKind']=='episode'">TV Series</span>
-                                <span class="label label-info" ng-if="result.data[this['data-index'+$index]][0]['MovieKind']=='movie'">Movie</span>
-                                <span class="label label-info">{{ result.data[this['data-index'+$index]][0]['Runtime'] }}</span>
-                                <span ng-repeat="genre in result.data[this['data-index'+$index]][0]['Genre'] | split:', '"><span class="label label-info">{{ genre }}</span> </span>
-                            </div>
-                            <div class="list-group-item-heading">
-                                <h4>{{ result.file }}</h4>
-                                <h4>{{ result.data[this['data-index'+$index]][0]['Title'] }}
-                                    <small>{{ result.data[this['data-index'+$index]][0]['Year'] }}</small>
-                                </h4>
-                            </div>
+                            <div class="media-body" style="overflow: visible;">
+                                <div class="pull-right">
+                                    <span class="label label-info">
+                                        {% if file['data'][0][0]['MovieKind']== 'episode' %}
+                                            TV Series
+                                        {% else  %}
+                                            Movie
+                                        {% endif %}
+                                    </span>
+                                    <span class="label label-info">{{ file['data'][0][0]['Runtime'] }}</span>
+                                    {% set genres = file['data'][0][0]['Genre'].split(', ') %}
+                                    {% for genre in genres %}
+                                        <span><span class="label label-info">{{ genre }}</span> </span>
+                                    {% endfor %}
+                                </div>
+                                <div class="list-group-item-heading">
+                                    <h4>{{ file['file'] }}</h4>
+                                    <h4>{{ file['data'][0][0]['Title'] }}
+                                        <small>{{ file['data'][0][0]['Year'] }}</small>
+                                    </h4>
+                                </div>
 
-                            <p class="list-group-item-text">{{ result.data[this['data-index'+$index]][0]['Plot'] }}</p>
-                            <b>Cast: </b> {{ result.data[this['data-index'+$index]][0]['Actors'] }} <br>
-                            <!-- Split button -->
-                            <div class="pull-right btn-group">
-                                <a href="{{ result.data[this['data-index'+$index]][0]['SubDownload'][0] }}" type="button"
-                                   class="btn btn-success">Download</a>
-                                <button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown"
-                                        aria-haspopup="true" aria-expanded="false"
-                                        ng-if="result.data[this['data-index'+$index]][0]['SubDownload'].length > 1">
-                                    <span class="caret"></span>
-                                    <span class="sr-only">Toggle Dropdown</span>
-                                </button>
-                                <ul class="dropdown-menu" ng-if="result.data[this['data-index'+$index]][0]['SubDownload'].length > 1">
-                                    <li ng-repeat="subtitles in result.data[this['data-index'+$index]][0]['SubDownload']">
-                                        <a ng-if="!$first" target="_blank" href="{{ subtitles }}">Subtitle
-                                            #{{ $index+1 }}</a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                        <div ng-show="result.data.length > 1" role="alert">
-                            <div>
-                                <span class="glyphicon glyphicon-exclamation-sign pull-left"
-                                      style="font-size: 45px;"></span>
-                                <span class="sr-only">Error:</span>
-
-                                <div class="text-center">
-                                    <h5>The system is not very sure about this file. Download from the one you
-                                        think is
-                                        correct.</h5>
-                                    <a href ng-class="{disabled:result.data[this['data-index'+$index]-1] == null}"
-                                       ng-click="this['data-index'+$index] = this['data-index'+$index] - 1"
-                                       class="btn btn-default"><span class="glyphicon glyphicon-chevron-left"
-                                                                     aria-hidden="true"></span></a>
-                                    <a href ng-class="{disabled:result.data[this['data-index'+$index]+1] == null}"
-                                       ng-click="this['data-index'+$index] = this['data-index'+$index] + 1"
-                                       class="btn btn-default"><span class="glyphicon glyphicon-chevron-right"
-                                                                     aria-hidden="true"></span></a>
+                                <p class="list-group-item-text">
+                                    {{ file['data'][0][0]['Plot'] }}</p>
+                                <b>Cast: </b> {{ file['data'][0][0]['Actors'] }} <br>
+                                <!-- Split button -->
+                                <div class="pull-right btn-group">
+                                    <a href="{{ file['data'][0][0]['SubDownload'][0] }}"
+                                       type="button"
+                                       class="btn btn-success">Download</a>
+                                    {% if file['data'][0][0]['SubDownload']|length > 1 %}
+                                        <button type="button" class="btn btn-success dropdown-toggle"
+                                                data-toggle="dropdown"
+                                                aria-haspopup="true" aria-expanded="false">
+                                            <span class="caret"></span>
+                                            <span class="sr-only">Toggle Dropdown</span>
+                                        </button>
+                                        <ul class="dropdown-menu">
+                                            {% for subtitles in file['data'][0][0]['SubDownload'] %}
+                                                <li>
+                                                    {% if loop.index != 1 %}
+                                                        <a target="_blank" href="{{ subtitles }}">Subtitle
+                                                            #{{ loop.index }}</a>
+                                                    {% endif %}
+                                                </li>
+                                            {% endfor %}
+                                        </ul>
+                                    {% endif %}
                                 </div>
                             </div>
-                        </div>
-                    </li>
+                                        {#
+                            <div ng-show="file['data'].length > 1" role="alert">
+                                <div>
+                                <span class="glyphicon glyphicon-exclamation-sign pull-left"
+                                      style="font-size: 45px;"></span>
+                                    <span class="sr-only">Error:</span>
+
+                                    <div class="text-center">
+                                        <h5>The system is not very sure about this file. Download from the one you
+                                            think is
+                                            correct.</h5>
+                                        <a href ng-class="{disabled:file['data'][0-1] == null}"
+                                           ng-click="0 = 0 - 1"
+                                           class="btn btn-default"><span class="glyphicon glyphicon-chevron-left"
+                                                                         aria-hidden="true"></span></a>
+                                        <a href ng-class="{disabled:file['data'][0+1] == null}"
+                                           ng-click="0 = 0 + 1"
+                                           class="btn btn-default"><span class="glyphicon glyphicon-chevron-right"
+                                                                         aria-hidden="true"></span></a>
+                                    </div>
+                                </div>
+                            </div>
+                                         #}
+                        </li>
+                    {% endfor %}
                 </ul>
             </div>
         </div>
@@ -117,7 +136,6 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"
             integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS"
             crossorigin="anonymous"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.9/angular.min.js"></script>
     <script src="../static/js/custom.js"></script>
 </body>
 </html>
