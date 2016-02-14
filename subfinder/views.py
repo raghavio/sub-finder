@@ -12,11 +12,10 @@ def _get_imdb_data(imdb_id):
     return imdb_data
 
 
-def stream_template(template_name, **context):
+def _stream_template(template_name, **context):
     app.update_template_context(context)
     t = app.jinja_env.get_template(template_name)
     rv = t.stream(context)
-    rv.enable_buffering(2)
     return rv
 
 
@@ -41,6 +40,6 @@ def index():
                 else:
                     result = {'file': file_name, 'error': "Could not find subtitle"}
                 yield result
-        return Response(stream_template("index.html", files=files(dataa)))
+        return Response(_stream_template("index.html", files=files(dataa)))
 
     return render_template("index.html")
