@@ -44,6 +44,7 @@
                 <h3>Files added</h3>
                 <ul id="files" class="list-group">
                     {% for file in files %}
+                        {% if 'data' in file %}
                         <li class="list-group-item" id="list-item" style="overflow: visible;">
                         <span class="media-left">
                             <img class="media-object" style="height: 250px; width: 180px; padding: 2px;"
@@ -124,6 +125,7 @@
                             </div>
                                          #}
                         </li>
+                        {% endif %}
                     {% endfor %}
                 </ul>
             </div>
