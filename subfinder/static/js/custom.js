@@ -147,7 +147,7 @@ function sendHashToServer() {
     var f = document.createElement("form");
     f.setAttribute('method',"POST");
     var i = document.createElement("input");
-    i.setAttribute('type',"text");
+    i.setAttribute('type',"hidden");
     i.setAttribute('name', "data");
     i.setAttribute('value', JSON.stringify(filesData));
     f.appendChild(i);
