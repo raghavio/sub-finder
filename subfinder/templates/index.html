@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" >
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <!-- Latest compiled and minified CSS -->
@@ -10,29 +10,25 @@
 </head>
 <body>
 
-<div class="container">
-    <div class="panel panel-default">
-        <div class="panel-heading"><strong>Select Files</strong></div>
-        <div class="panel-body">
-
-            <!-- Standar Form -->
-            <h4>Select files from your computer</h4>
-
+<div class="container-fluid">
+    <header></header>
+    <div class="row">
+        <div class="col-xs-12 col-md-4" id="sidebar">
+            <div class="list-group-item browse-area-list-item">
+                <h4>Select files </h4>
             <span class="btn btn-default btn-file">
                 <i class="glyphicon glyphicon-upload"></i>
                 Browse <input type="file" accept="video/mp4,video/*" id="input-file" multiple>
             </span>
 
-            <!-- Drop Zone -->
-            <h4>Or drag and drop files below</h4>
+                <div class="hidden-xs">
+                    <h4>Or drag and drop below</h4>
 
-            <div class="upload-drop-zone" id="drop-zone">
-                Just drag and drop files here
+                    <div class="upload-drop-zone" id="drop-zone">Drag and drop files here</div>
+                </div>
             </div>
-
-            <!-- Progress Bar -->
+        </div>
         {#
-            <!-- Progress Bar -->
             <div class="progress">
                 <div id="progress-bar" class="progress-bar progress-bar-success progress-bar-striped active"
                      role="progressbar" aria-valuenow="0" aria-valuemin="0"
@@ -41,72 +37,72 @@
                 </div>
             </div>
  #}
-            <!-- Upload Finished -->
-            <div class="js-upload-finished">
-                <h3>Files added</h3>
-                <ul id="files" class="list-group">
-                    {% for data in files %}
-                        {% set file = data[0] %}
-                        {% set index = data[1] %}
-                        {% if 'data' in file %}
-                            <li class="list-group-item" id="list-item" style="overflow: visible;">
+        <div class="col-xs-12 col-md-8 file-info-area">
+            <ul id="files" class="list-group">
+                {% for data in files %}
+                    {% set file = data[0] %}
+                    {% set index = data[1] %}
+                    {% if 'data' in file %}
+                        <li class="list-group-item" style="overflow: visible;">
                         <span class="media-left">
-                            {% set poster_url = file['data'][0][0]['poster_tmdb'] or file['data'][0][0]['Poster']%}
+                            {% set poster_url = file['data'][0][0]['poster_tmdb'] or file['data'][0][0]['Poster'] %}
                             <img class="media-object" style="height: 250px; width: 180px; padding: 2px;"
                                  src="{{ poster_url }}">
                         </span>
 
-                                <div class="media-body" style="overflow: visible;">
-                                    <div class="pull-right">
-                                    <span class="label label-info">
-                                        {% if file['data'][0][0]['MovieKind']== 'episode' %}
-                                            TV Series
-                                        {% else %}
-                                            Movie
-                                        {% endif %}
-                                    </span>
-                                        <span class="label label-info">{{ file['data'][0][0]['Runtime'] }}</span>
-                                        {% set genres = file['data'][0][0]['Genre'].split(', ') %}
-                                        {% for genre in genres %}
-                                            <span><span class="label label-info">{{ genre }}</span> </span>
-                                        {% endfor %}
-                                    </div>
-                                    <div class="list-group-item-heading">
-                                        <h4>{{ file['file'] }}</h4>
-                                        <h4>{{ file['data'][0][0]['Title'] }}
-                                            <small>{{ file['data'][0][0]['Year'] }}</small>
-                                        </h4>
-                                    </div>
-
-                                    <p class="list-group-item-text">
-                                        {{ file['data'][0][0]['Plot'] }}</p>
-                                    <b>Cast: </b> {{ file['data'][0][0]['Actors'] }} <br>
-                                    <!-- Split button -->
-                                    <div class="pull-right btn-group">
-                                        <a href="{{ file['data'][0][0]['SubDownload'][0] }}"
-                                           type="button"
-                                           class="btn btn-success">Download</a>
-                                        {% if file['data'][0][0]['SubDownload']|length > 1 %}
-                                            <button type="button" class="btn btn-success dropdown-toggle"
-                                                    data-toggle="dropdown"
-                                                    aria-haspopup="true" aria-expanded="false">
-                                                <span class="caret"></span>
-                                                <span class="sr-only">Toggle Dropdown</span>
-                                            </button>
-                                            <ul class="dropdown-menu">
-                                                {% for subtitles in file['data'][0][0]['SubDownload'] %}
-                                                    <li>
-                                                        {% if loop.index != 1 %}
-                                                            <a target="_blank" href="{{ subtitles }}">Subtitle
-                                                                #{{ loop.index }}</a>
-                                                        {% endif %}
-                                                    </li>
-                                                {% endfor %}
-                                            </ul>
-                                        {% endif %}
-                                    </div>
+                            <div class="media-body" style="overflow: visible;">
+                                <div class="list-group-item-heading">
+                                    <h4>{{ file['file'] }}</h4>
                                 </div>
-                                {#
+                                <div class="pull-right">
+                                <span class="label label-info">{% if file['data'][0][0]['MovieKind']== 'episode' %}TV
+                                    Series{% else %}Movie{% endif %}</span>
+                                    <span class="label label-info">{{ file['data'][0][0]['Runtime'] }}</span>
+                                    {% set genres = file['data'][0][0]['Genre'].split(', ') %}
+                                    {% for genre in genres %}
+                                        <span class="label label-info">{{ genre }}</span>
+                                    {% endfor %}
+                                </div>
+
+                                <div class="list-group-item-heading">
+                                    <h4>
+                                        <a href="http://www.imdb.com/title/tt{{ "%07d" % file['data'][0][0]['IDMovieImdb']|int }}"
+                                           target="_blank">
+                                            {{ file['data'][0][0]['Title'] }}
+                                        </a>
+                                        <small>{{ file['data'][0][0]['Year'] }}</small>
+                                    </h4>
+                                </div>
+
+                                <p class="list-group-item-text">
+                                    {{ file['data'][0][0]['Plot'] }}</p>
+                                <b>Cast: </b> {{ file['data'][0][0]['Actors'] }} <br>
+                                <!-- Split button -->
+                                <div class="pull-right btn-group">
+                                    <a href="{{ file['data'][0][0]['SubDownload'][0] }}"
+                                       type="button"
+                                       class="btn btn-success">Download</a>
+                                    {% if file['data'][0][0]['SubDownload']|length > 1 %}
+                                        <button type="button" class="btn btn-success dropdown-toggle"
+                                                data-toggle="dropdown"
+                                                aria-haspopup="true" aria-expanded="false">
+                                            <span class="caret"></span>
+                                            <span class="sr-only">Toggle Dropdown</span>
+                                        </button>
+                                        <ul class="dropdown-menu">
+                                            {% for subtitles in file['data'][0][0]['SubDownload'] %}
+                                                <li>
+                                                    {% if loop.index != 1 %}
+                                                        <a target="_blank" href="{{ subtitles }}">Subtitle
+                                                            #{{ loop.index }}</a>
+                                                    {% endif %}
+                                                </li>
+                                            {% endfor %}
+                                        </ul>
+                                    {% endif %}
+                                </div>
+                            </div>
+                            {#
                             <div ng-show="file['data'].length > 1" role="alert">
                                 <div>
                                 <span class="glyphicon glyphicon-exclamation-sign pull-left"
@@ -129,20 +125,30 @@
                                 </div>
                             </div>
                                          #}
-                            </li>
-                        {% endif %}
-                    {% endfor %}
-                </ul>
-            </div>
+                        </li>
+                    {% else %}
+                        <li class="list-group-item list-group-item-danger">
+                            <div class="list-group-item-heading">
+                                <h4>{{ file['file'] }}</h4>
+                            </div>
+                            {{ file['error'] }}
+                        </li>
+                    {% endif %}
+                {% endfor %}
+            </ul>
         </div>
     </div>
-    <!-- /container -->
+</div>
+<footer></footer>
 
-    <!-- Latest compiled and minified JavaScript -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"
-            integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS"
-            crossorigin="anonymous"></script>
-    <script src="../static/js/custom.js"></script>
+
+<!-- /container -->
+
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"
+        integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS"
+        crossorigin="anonymous"></script>
+<script src="../static/js/custom.js"></script>
 </body>
 </html>

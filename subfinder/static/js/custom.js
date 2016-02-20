@@ -4,6 +4,26 @@ if (window.File && window.FileList && window.FileReader) {
     alert("Not supported for your browser");
 }
 
+$(function() {
+    var sidebar = $('#sidebar');
+    var bottom = $(document).height() - ( $("#footer").offset().top) + ($(this).outerHeight() - $(this).height()) + 20;
+
+    sidebar.affix({
+        offset: {
+            top: sidebar.offset().top,
+            bottom: bottom
+        }
+    });
+    sidebar.on('affix.bs.affix', function () {
+        $('.file-info-area').addClass("col-md-offset-4")
+    });
+    sidebar.on('affix-top.bs.affix', function () {
+        $('.file-info-area').removeClass("col-md-offset-4")
+    });
+    sidebar.on('affix-bottom.bs.affix', function () {
+        $('.file-info-area').removeClass("col-md-offset-4");
+    });
+});
 
 function init() {
 
@@ -21,35 +41,6 @@ function init() {
     dragElement.addEventListener("dragover", fileDragHover, false);
     dragElement.addEventListener("dragleave", fileDragHover, false);
     dragElement.addEventListener("drop", fileSelectHandler, false);
-
-
-    /*var app = angular.module('sub-finder', []).filter('split', function () {
-        return function (input, splitChar) {
-            // do some bounds checking here to ensure it has that index
-            return input.split(splitChar);
-        }
-    });
-
-    app.controller('FilesController', ['$scope', function ($scope) {
-        // the last received msg
-        $scope.files = [];
-
-        // handles the callback from the received event
-        var handleCallback = function (e) {
-            $scope.$apply(function () {
-                var data = JSON.parse(e.data);
-                var isError = false;
-                if ("error" in data)
-                    isError = true;
-                else
-                    $scope.files.push(data);
-                updateProgressBar();
-            });
-        };
-
-        var source = new EventSource('/stream');
-        source.addEventListener('message', handleCallback, false);
-    }]); */
 
 }
 
@@ -145,9 +136,9 @@ function calculateHash(file, currentFileInLoop, totalFiles) {
 function sendHashToServer() {
     window.totalFiles = filesData.data.length;
     var f = document.createElement("form");
-    f.setAttribute('method',"POST");
+    f.setAttribute('method', "POST");
     var i = document.createElement("input");
-    i.setAttribute('type',"hidden");
+    i.setAttribute('type', "hidden");
     i.setAttribute('name', "data");
     i.setAttribute('value', JSON.stringify(filesData));
     f.appendChild(i);

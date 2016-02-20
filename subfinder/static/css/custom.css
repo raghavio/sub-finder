@@ -1,27 +1,20 @@
-/* layout.css Style */
 .upload-drop-zone {
-  height: 200px;
-  border-width: 2px;
-  margin-bottom: 20px;
+    color: #ccc;
+    border: dashed #ccc;
+    line-height: 500px;
+    text-align: center;
 }
 
-/* skin.css Style*/
-.upload-drop-zone {
-  color: #ccc;
-  border-style: dashed;
-  border-color: #ccc;
-  line-height: 200px;
-  text-align: center
-}
 .upload-drop-zone.drop {
-  color: #222;
-  border-color: #222;
+    color: #222;
+    border-color: #222;
 }
 
 .btn-file {
     position: relative;
     overflow: hidden;
 }
+
 .btn-file input[type=file] {
     position: absolute;
     top: 0;
@@ -37,3 +30,31 @@
     cursor: inherit;
     display: block;
 }
+
+@media (max-width: 767px) {
+    .browse-area-list-item {
+        height: auto;
+    }
+}
+
+@media (max-width: 992px) {
+    .file-info-area {
+        padding: 20px;
+    }
+
+    .affix {
+        position: static;
+    }
+}
+
+@media (min-width: 992px) {
+    .browse-area-list-item {
+        height: 100%;
+    }
+
+    #sidebar.affix {
+        top: 0;
+        position: fixed;
+    }
+}
+
