@@ -1,6 +1,4 @@
-from time import sleep
-from flask import render_template, request, json, Response, stream_with_context
-import gevent
+from flask import render_template, request, json, Response
 from subfinder import app
 import opensubtitles
 import requests
@@ -16,7 +14,7 @@ def _get_imdb_data(imdb_id):
 
 def _get_tmdb_data(imdb_id):
     imdb_id = "tt" + "%07d" % int(imdb_id)
-    payload = {"external_source": "imdb_id", "api_key": "36a18a62165c6ca701db83d16539083e"}
+    payload = {"external_source": "imdb_id", "api_key": app.config['MOVIEDB_API_KEY']}
     r = requests.get("http://api.themoviedb.org/3/find/%s" % imdb_id, params=payload)
     return r.json()
 

@@ -24,9 +24,9 @@ import operator
 import itertools
 import xmlrpclib
 import logging
+from subfinder import app
 
 server_url = "http://api.opensubtitles.org/xml-rpc"
-user_agent = "OSTestUserAgent"  # Test user agent, you should request a new one.
 
 server = xmlrpclib.Server(server_url)
 
@@ -123,7 +123,7 @@ def _logout(token):
 
 def _login(lang, username="", password=""):
     try:
-        result = server.LogIn(username, password, lang, user_agent)
+        result = server.LogIn(username, password, lang, app.config['OPENSUBTITLES_API_KEY'])
         return result
     except Exception as e:
         logging.error("An error occurred while logging in: %s" % e)

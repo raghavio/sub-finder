@@ -1,7 +1,5 @@
 from flask import Flask
-import redis
 
 app = Flask(__name__)
-red = redis.StrictRedis()
-
+app.config.from_pyfile("settings.cfg")
 from subfinder import views
