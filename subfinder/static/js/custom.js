@@ -55,7 +55,8 @@ function fileSelectHandler(e) {
 function fileDragHover(e) {
     e.stopPropagation();
     e.preventDefault();
-    e.target.className = (e.type == "dragover" ? "upload-drop-zone drop" : "upload-drop-zone")
+    var drop_area_ele = document.getElementById("drop-zone");
+    drop_area_ele.className = (e.type == "dragover" ? "upload-drop-zone drop" : "upload-drop-zone")
 }
 
 /**
