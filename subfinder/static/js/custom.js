@@ -4,7 +4,7 @@ if (window.File && window.FileList && window.FileReader) {
     alert("Not supported for your browser");
 }
 
-$(function() {
+$(function () {
     var sidebar = $('#sidebar');
     var bottom = $(document).height() - ( $('#stop-affix').offset().top) + ($(this).outerHeight() - $(this).height()) + 15;
 
@@ -22,6 +22,11 @@ $(function() {
     });
     sidebar.on('affix-bottom.bs.affix', function () {
         $('.file-info-area').removeClass("col-md-offset-4");
+    });
+
+    //init chosen on language search box
+    $('#lang-search').chosen({
+        width: '170px'
     });
 });
 
@@ -42,6 +47,7 @@ function init() {
     dragElement.addEventListener("dragleave", fileDragHover, false);
     dragElement.addEventListener("drop", fileSelectHandler, false);
 
+    createForm();
 }
 
 function fileSelectHandler(e) {
@@ -128,23 +134,41 @@ function calculateHash(file, currentFileInLoop, totalFiles) {
     read(0, HASH_CHUNK_SIZE, function () {
         read(file.size - HASH_CHUNK_SIZE, undefined, function () {
             filesData.data.push({"fileName": file.name, "hash": binl2hex(longs), "fileSize": file.size});
-            if (currentFileInLoop == totalFiles)
+            if (currentFileInLoop == totalFiles) {
+                window.totalFiles = filesData.data.length;
                 sendHashToServer();
+            }
         });
     });
 }
 
+/**
+ * Sends data to server by submitting the form.
+ * @see createForm()
+ */
 function sendHashToServer() {
-    window.totalFiles = filesData.data.length;
+    document.getElementById("hash-string").value = JSON.stringify(filesData);
+    document.getElementById("hash_data_form").submit();
+}
+
+
+/**
+ * Creates a form we use to submit hashes and language the user selected.
+ * For language we use select tag whose form attribute is set to this. HTML5 stuff.
+ */
+function createForm() {
     var f = document.createElement("form");
+    f.setAttribute('id', 'hash_data_form');
     f.setAttribute('method', "POST");
+
     var i = document.createElement("input");
+    i.setAttribute('id', 'hash-string');
     i.setAttribute('type', "hidden");
     i.setAttribute('name', "data");
-    i.setAttribute('value', JSON.stringify(filesData));
+
     f.appendChild(i);
+
     document.body.appendChild(f);
-    f.submit();
 }
 
 /**
