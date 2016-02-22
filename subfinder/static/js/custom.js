@@ -6,7 +6,7 @@ if (window.File && window.FileList && window.FileReader) {
 
 $(function() {
     var sidebar = $('#sidebar');
-    var bottom = $(document).height() - ( $('#stop-affix').offset().top) + ($(this).outerHeight() - $(this).height());
+    var bottom = $(document).height() - ( $('#stop-affix').offset().top) + ($(this).outerHeight() - $(this).height()) + 15;
 
     sidebar.affix({
         offset: {

@@ -7,12 +7,43 @@
           integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
     <link rel="stylesheet" href="../static/css/custom.css">
     <link href='https://fonts.googleapis.com/css?family=Merriweather' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
     <title>SubFinder</title>
 </head>
 <body>
+<header>
+    <nav class="navbar navbar-default">
+        <div class="container-fluid">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+                        data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#">Subfinder</a>
+            </div>
 
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a href="#" style="padding: 7px 0 7px 15px">
+                        <i style="font-size: 36px;" class="fa fa-github"></i></a>
+                    </li>
+                    <li><a href="#" style="padding: 7px 0 7px 15px">
+                        <i style="font-size: 36px;" class="fa fa-twitter"></i></a>
+                    </li>
+                    <li><a href="#" style="padding: 7px 0 7px 15px">
+                        <i style="font-size: 36px;" class="fa fa-internet-explorer"></i></a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+</header>
 <div class="container-fluid">
-    <header></header>
     <div class="row">
         <div class="col-xs-12 col-md-4" id="sidebar">
             <div class="panel panel-default browse-area-list-item">
@@ -21,14 +52,19 @@
                 </div>
                 <div class="panel-body">
                      <span class="btn btn-default btn-file">
-                        <i class="glyphicon glyphicon-upload"></i>
+                        <i class="fa fa-file-movie-o"></i>
                         Browse <input type="file" accept="video/mp4,video/*" id="input-file" multiple>
                      </span>
 
                     <div class="hidden-xs">
                         <h4 style="margin-bottom: 20px;">Or</h4>
 
-                        <div class="upload-drop-zone" id="drop-zone">Drag and drop files here</div>
+                        <div class="upload-drop-zone" id="drop-zone">
+                            <div style="padding-top: 182px;">
+                                <i style="font-size: 100px;" class="fa fa-file-movie-o"></i><br>
+                                Drag and drop files here
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -150,32 +186,32 @@
                         </ul>
                     </div>
                 </div>
-                </div>
             {% endif %}
+        </div>
     </div>
 </div>
 <div id="stop-affix"></div>
 <hr>
-<div class="api-credit">
-    <h3 class="api-credit-heading text-center">Powered by</h3>
+<div class="container">
+    <div class="container-fluid api-credit">
+        <h3 class="api-credit-heading text-center">Powered by</h3>
 
-    <div class="text-center">
-        <a href="http://opensubtitles.org" target="_blank"><img height="60" width="200"
-                                                                src="../static/opensubtitles.png"></a>
-        <span class="verticalLine"></span>
-        <a href="http://themoviedb.com" target="_blank"><img height="80" width="220" src="../static/moviedb.svg"></a>
+        <div class="text-center">
+            <a href="http://opensubtitles.org" target="_blank"><img height="60" width="200"
+                                                                    src="../static/opensubtitles.png"></a>
+            <span class="vertical-line"></span>
+            <a href="http://themoviedb.com" target="_blank"><img height="80" width="220"
+                                                                 src="../static/moviedb.svg"></a>
+        </div>
     </div>
+    <footer class="text-center" style="padding: 20px 0 40px 0">
+        <hr>
+        <p>
+            <a href="http://github.com/raghavpro/sub-finder" target="_blank" class="btn btn-sm btn-info">Made with <i class="fa fa-heart"></i> by
+                Raghav</a>
+        </p>
+    </footer>
 </div>
-<hr>
-<footer class="text-center" style="padding: 20px 0 40px 0">
-    <p>
-        <a href="http://github.com/raghavpro/sub-finder" target="_blank" class="btn btn-sm btn-info">Made with ♥ by
-            Raghav</a>
-    </p>
-</footer>
-
-
-<!-- /container -->
 
 <!-- Latest compiled and minified JavaScript -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
