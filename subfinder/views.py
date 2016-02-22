@@ -3,6 +3,11 @@ from subfinder import app
 import opensubtitles
 import requests
 
+all_languages = {'Arabic': 'ara', 'Bulgarian': 'bul', 'Dutch': 'dut', 'English': 'eng', 'French': 'fre',
+                 'German': 'ger',
+                 'Greek': 'ell', 'Hungarian': 'hun', 'Italian': 'ita', 'Polish': 'pol', 'Portuguese': 'por',
+                 'Portuguese_BR': 'pob', 'Romanian': 'rum', 'Russian': 'rus', 'Spanish': 'spa', 'Turkish': 'tur'}
+
 
 def _get_imdb_data(imdb_id):
     imdb_id = "tt" + "%07d" % int(imdb_id)
@@ -41,8 +46,10 @@ def _stream_template(template_name, **context):
 
 @app.route("/", methods=['GET', 'POST'])
 def index():
+    selected_language = request.cookies.get('language') or all_languages['English']
     if request.method == "POST":
         form_data = json.loads(request.form['data'])
+        language = request.form['language']  # language user selected
         data = form_data['data']
 
         def files(data):
@@ -50,7 +57,7 @@ def index():
                 hash = fileData['hash']
                 file_name = fileData['fileName']
                 file_size = fileData['fileSize']
-                search_data = [{'moviehash': hash, 'moviebytesize': file_size, 'sublanguageid': 'eng'}]
+                search_data = [{'moviehash': hash, 'moviebytesize': file_size, 'sublanguageid': language}]
                 sub_data = opensubtitles.search_sub(search_data)
                 if sub_data:
                     for imdb in sub_data:
@@ -62,7 +69,14 @@ def index():
                     result = {'file': file_name, 'data': sub_data}
                 else:
                     result = {'file': file_name, 'error': "Could not find subtitle"}
-                yield (result, i+1)
+                yield (result, i + 1)
 
-        return Response(_stream_template("index.html", files=files(data), total_files=len(data)))
-    return render_template("index.html", total_files=1, files=[])
+        resp = Response(
+            _stream_template("index.html", files=files(data), total_files=len(data), languages=all_languages,
+                             selected_language=language))
+        if selected_language != language:
+            resp.set_cookie('language', language)  # Store language in cookie if it is different than default
+        return resp
+
+    return render_template("index.html", total_files=0, files=[], languages=all_languages,
+                           selected_language=selected_language)

@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="../static/css/custom.css">
     <link href='https://fonts.googleapis.com/css?family=Merriweather' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="../static/css/bootstrap-chosen.min.css" type="text/css">
     <title>SubFinder</title>
 </head>
 <body>
@@ -56,14 +57,23 @@
                         Browse <input type="file" accept="video/mp4,video/*" id="input-file" multiple>
                      </span>
 
+                    <div class=" pull-right">
+                        <select class="form-control" title="Language" id="lang-search" name="language"
+                                form="hash_data_form">
+                            {% for language, lang_short in languages.iteritems() %}
+                                <option value="{{ lang_short }}"
+                                        {% if lang_short == selected_language %}selected="selected"{% endif %}>
+                                    {{ language }}
+                                </option>
+                            {% endfor %}
+                        </select>
+                    </div>
                     <div class="hidden-xs">
                         <h4 style="margin-bottom: 20px;">Or</h4>
 
-                        <div class="upload-drop-zone" id="drop-zone">
-                            <div style="padding-top: 182px;">
-                                <i style="font-size: 100px;" class="fa fa-file-movie-o"></i><br>
-                                Drag and drop files here
-                            </div>
+                        <div class="upload-drop-zone" id="drop-zone" style="padding-top: 182px;">
+                            <i style="font-size: 100px;" class="fa fa-file-movie-o"></i><br>
+                            Drag and drop files here
                         </div>
                     </div>
                 </div>
@@ -207,7 +217,8 @@
     <footer class="text-center" style="padding: 20px 0 40px 0">
         <hr>
         <p>
-            <a href="http://github.com/raghavpro/sub-finder" target="_blank" class="btn btn-sm btn-info">Made with <i class="fa fa-heart"></i> by
+            <a href="http://github.com/raghavpro/sub-finder" target="_blank" class="btn btn-sm btn-info">Made with <i
+                    class="fa fa-heart"></i> by
                 Raghav</a>
         </p>
     </footer>
@@ -218,6 +229,7 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"
         integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS"
         crossorigin="anonymous"></script>
+<script src="../static/js/chosen.jquery.min.js"></script>
 <script src="../static/js/custom.js"></script>
 </body>
 </html>
