@@ -1,1 +1,1 @@
-web: gunicorn subfinder.wsgiapp:app
+web: gunicorn subfinder:app
