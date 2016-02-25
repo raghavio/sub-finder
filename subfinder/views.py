@@ -44,7 +44,8 @@ def _stream_template(template_name, **context):
     return rv
 
 
-@app.route("/", methods=['GET', 'POST'])
+@app.route("/", methods=['GET'])
+@app.route("/results", methods=['POST'])
 def index():
     selected_language = request.cookies.get('language') or all_languages['English']
     if request.method == "POST":

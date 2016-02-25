@@ -159,6 +159,7 @@ function sendHashToServer() {
 function createForm() {
     var f = document.createElement("form");
     f.setAttribute('id', 'hash_data_form');
+    f.setAttribute('action', '/results');
     f.setAttribute('method', "POST");
 
     var i = document.createElement("input");
