@@ -56,15 +56,21 @@ body {
 
 @media (min-width: 992px) {
     .file-info-area {
-        min-height: 662px;
+        min-height: 705px;
     }
     #sidebar {
-        min-height: 662px;
+        min-height: 705px;
     }
 
     #sidebar.affix {
         top: 0;
         position: fixed;
+    }
+
+    #sidebar.affix-top {
+    }
+
+    #sidebar.affix-bottom {
     }
 }
 
@@ -83,4 +89,21 @@ body {
 
 .browse-area-list-item {
     margin-bottom: 0;
+}
+
+#subfinder-info {
+    padding-top: 40px;
+    margin-bottom: 20px;
+}
+
+.download-steps {
+    text-align: center;
+    padding-bottom: 30px;
+}
+#lang-search {
+}
+
+footer {
+    text-align: center;
+    padding: 20px 0 40px 0;
 }
