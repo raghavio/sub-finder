@@ -53,13 +53,15 @@ def index():
         language = request.form['language']  # language user selected
         data = form_data['data']
 
+        token = opensubtitles.login().get('token')  # Create session
+
         def files(data):
             for i, fileData in enumerate(data):
                 hash = fileData['hash']
                 file_name = fileData['fileName']
                 file_size = fileData['fileSize']
                 search_data = [{'moviehash': hash, 'moviebytesize': file_size, 'sublanguageid': language}]
-                sub_data = opensubtitles.search_sub(search_data)
+                sub_data = opensubtitles.search_sub(search_data, token)
                 if sub_data:
                     for imdb in sub_data:
                         imdb_data = _get_imdb_data(imdb[0]['IDMovieImdb'])
@@ -71,6 +73,7 @@ def index():
                 else:
                     result = {'file': file_name, 'error': "Could not find subtitle"}
                 yield (result, i + 1)
+            opensubtitles.logout(token)  # End session
 
         resp = Response(
             _stream_template("index.html", files=files(data), total_files=len(data), languages=all_languages,
