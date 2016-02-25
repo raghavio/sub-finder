@@ -26,9 +26,9 @@ import xmlrpclib
 import logging
 from subfinder import app
 
-server_url = "http://api.opensubtitles.org/xml-rpc"
+SERVER_URL = "http://api.opensubtitles.org/xml-rpc"
 
-server = xmlrpclib.Server(server_url)
+server = xmlrpclib.Server(SERVER_URL)
 
 
 # This is our custom rating algorithm, to find the best suitable sub
@@ -52,10 +52,8 @@ def rating_algorithm(data):
 # OpenSubtitles DB is fucked up, it returns multiple results and
 # sometimes of different movies/series. So we have to do a lot of
 # shit to find the best sub.
-def search_sub(data):
+def search_sub(data, token):
     try:
-        login_data = _login("eng")
-        token = login_data['token']
         result = server.SearchSubtitles(token, data)
 
         if result['status'] != "200 OK":
@@ -114,14 +112,14 @@ def search_sub(data):
 
 # This will end the session id.
 # This is totally unnecessary to call, but OCD.
-def _logout(token):
+def logout(token):
     try:
         server.LogOut(token)
     except Exception as e:
         logging.error("An error occurred while logging out: %s" % e)
 
 
-def _login(lang, username="", password=""):
+def login(lang="eng", username="", password=""):
     try:
         result = server.LogIn(username, password, lang, app.config['OPENSUBTITLES_API_KEY'])
         return result
