@@ -1,262 +1,258 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
+  <head>
     <meta charset="UTF-8">
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"
-          integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+      integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
     <link rel="stylesheet" href="../static/css/custom.css">
     <link href='https://fonts.googleapis.com/css?family=Merriweather' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="../static/css/bootstrap-chosen.min.css" type="text/css">
     <title>SubFinder - Download synced subtitles</title>
-</head>
-<body>
-<header>
-    <nav class="navbar navbar-default">
+  </head>
+  <body>
+    <header>
+      <nav class="navbar navbar-default">
         <div class="container-fluid">
-            <!-- Brand and toggle get grouped for better mobile display -->
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
-                        data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a class="navbar-brand" href="#">Subfinder</a>
-            </div>
-
-            <!-- Collect the nav links, forms, and other content for toggling -->
-            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                <ul class="nav navbar-nav navbar-right">
-                    <li><a href="http://github.com/raghavpro" style="padding: 7px 0 7px 15px" target="_blank">
-                        <i style="font-size: 36px;" class="fa fa-github"></i></a>
-                    </li>
-                    <li><a href="http://twitter.com/vahgaR_" style="padding: 7px 0 7px 15px" target="_blank">
-                        <i style="font-size: 36px;" class="fa fa-twitter"></i></a>
-                    </li>
-                    <li><a href="http://raghavpro.com" style="padding: 7px 0 7px 15px" target="_blank">
-                        <i style="font-size: 36px;" class="fa fa-internet-explorer"></i></a>
-                    </li>
-                </ul>
-            </div>
+          <!-- Brand and toggle get grouped for better mobile display -->
+          <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+              data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#">Subfinder</a>
+          </div>
+          <!-- Collect the nav links, forms, and other content for toggling -->
+          <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right">
+              <li><a href="http://github.com/raghavpro" style="padding: 7px 0 7px 15px" target="_blank">
+                <i style="font-size: 36px;" class="fa fa-github"></i></a>
+              </li>
+              <li><a href="http://twitter.com/vahgaR_" style="padding: 7px 0 7px 15px" target="_blank">
+                <i style="font-size: 36px;" class="fa fa-twitter"></i></a>
+              </li>
+              <li><a href="http://raghavpro.com" style="padding: 7px 0 7px 15px" target="_blank">
+                <i style="font-size: 36px;" class="fa fa-internet-explorer"></i></a>
+              </li>
+            </ul>
+          </div>
         </div>
-    </nav>
-</header>
-<div class="container">
-    <div class="col-md-12" id="subfinder-info">
+      </nav>
+    </header>
+    <div class="container">
+      <div class="col-md-12" id="subfinder-info">
         <div class="download-steps">
-            <p class="lead">Download subtitles which were made just for your file!</p>
-            <h4>1. Select language</h4>
-            <h4>2. Browse video files</h4>
-            <h4>3. Download</h4>
+          <p class="lead">Download subtitles which were made just for your file!</p>
+          <h4>1. Select language</h4>
+          <h4>2. Browse video files</h4>
+          <h4>3. Download</h4>
         </div>
         <div>
-            <p class="lead">How it works?</p>
-            <em>
-                We calculate a special hash function from the provided video file. Which gets used to match against the
-                subtitle
-                file in the database.
-                The video file name does not play any role in this process.<br>
-                Although most of the time you will get a perfectly synchronized subtitle for your file sometimes our
-                ranking
-                algorithm can go wrong. In case that happens just choose a different file from the download dropdown.
-            </em>
-            <br><br>
-            <em>Read more on hash functions <a href="http://en.wikipedia.org/wiki/Hash_function"
-                                               target="_blank">here</a>.</em>
+          <p class="lead">How it works?</p>
+          <em>
+          We calculate a special hash function from the provided video file. Which gets used to match against the
+          subtitle
+          file in the database.
+          The video file name does not play any role in this process.<br>
+          Although most of the time you will get a perfectly synchronized subtitle for your file sometimes our
+          ranking
+          algorithm can go wrong. In case that happens just choose a different file from the download dropdown.
+          </em>
+          <br><br>
+          <em>Read more on hash functions <a href="http://en.wikipedia.org/wiki/Hash_function"
+            target="_blank">here</a>.</em>
         </div>
+      </div>
     </div>
-</div>
-<hr>
-<div class="container-fluid">
-    <div class="row">
+    <hr>
+    <div class="container-fluid">
+      <div class="row">
         <div class="col-xs-12 col-md-4" id="sidebar">
-            <div class="panel panel-default browse-area-list-item">
-                <div class="panel-heading">
-                    Select files
-                </div>
-                <div class="panel-body">
-                    <div style="margin-bottom: 5px;">
-                        <select class="form-control" title="Language" id="lang-search" name="language"
-                                form="hash_data_form">
-                            {% for language, lang_short in languages.iteritems() %}
-                                <option value="{{ lang_short }}"
-                                        {% if lang_short == selected_language %}selected="selected"{% endif %}>
-                                    {{ language }}
-                                </option>
-                            {% endfor %}
-                        </select>
-                    </div>
-                    <br>
-                     <span class="btn btn-default btn-file">
-                        <i class="fa fa-file-movie-o"></i>
-                        Browse <input type="file" accept="video/mp4,video/*" id="input-file" multiple>
-                     </span>
-
-                    <div class="hidden-xs">
-                        <h4>Or</h4>
-
-                        <div class="upload-drop-zone" id="drop-zone" style="padding-top: 182px;">
-                            <i style="font-size: 100px;" class="fa fa-file-movie-o"></i><br>
-                            Drag and drop files here
-                        </div>
-                    </div>
-                </div>
+          <div class="panel panel-default browse-area-list-item">
+            <div class="panel-heading">
+              Select files
             </div>
+            <div class="panel-body">
+              <div style="margin-bottom: 5px;">
+                <select class="form-control" title="Language" id="lang-search" name="language"
+                  form="hash_data_form">
+                {% for language, lang_short in languages.iteritems() %}
+                <option value="{{ lang_short }}"
+                {% if lang_short == selected_language %}selected="selected"{% endif %}>
+                {{ language }}
+                </option>
+                {% endfor %}
+                </select>
+              </div>
+              <br>
+              <span class="btn btn-default btn-file">
+              <i class="fa fa-file-movie-o"></i>
+              Browse <input type="file" accept="video/mp4,video/*" id="input-file" multiple>
+              </span>
+              <div class="hidden-xs">
+                <h4>Or</h4>
+                <div class="upload-drop-zone" id="drop-zone" style="padding-top: 182px;">
+                  <i style="font-size: 100px;" class="fa fa-file-movie-o"></i><br>
+                  Drag and drop files here
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
         {#
-            <div class="progress">
-                <div id="progress-bar" class="progress-bar progress-bar-success progress-bar-striped active"
-                     role="progressbar" aria-valuenow="0" aria-valuemin="0"
-                     aria-valuemax="100">
-                    <span id="progress-bar-span" class="sr-only">0% Complete</span>
-                </div>
-            </div>
- #}
+        <div class="progress">
+          <div id="progress-bar" class="progress-bar progress-bar-success progress-bar-striped active"
+            role="progressbar" aria-valuenow="0" aria-valuemin="0"
+            aria-valuemax="100">
+            <span id="progress-bar-span" class="sr-only">0% Complete</span>
+          </div>
+        </div>
+        #}
         <div class="col-xs-12 col-md-8 file-info-area">
-            {% if files %}
-                <div class="panel panel-default" style="margin-bottom: 0;">
-                    <div class="panel-heading">
-                        Details
+          {% if files %}
+          <div class="panel panel-default" style="margin-bottom: 0;">
+            <div class="panel-heading">
+              Details
+            </div>
+            <div class="panel-body">
+              <ul id="files" class="list-group">
+                {% for data in files %}
+                {% set file = data[0] %}
+                {% set index = data[1] %}
+                {% if 'data' in file %}
+                {% set data_length = file['data'] | length %}
+                {% for data in file['data'] %}
+                <li class="list-group-item {% if loop.index > 1 %} hidden {% endif %}"
+                  style="overflow: visible;" {% if data_length >
+                  1 %}
+                  id="file-{{ index }}-{{ loop.index }}" {% endif %}>
+                  <span class="media-left">
+                  {% set poster_url = data[0]['poster_tmdb'] or data[0]['Poster'] %}
+                  <img class="media-object" style="height: 250px; width: 180px; padding: 2px;"
+                    src="{{ poster_url }}">
+                  </span>
+                  <div class="media-body" style="overflow: visible;">
+                    <div class="list-group-item-heading">
+                      <h4>{{ file['file'] }}</h4>
                     </div>
-
-                    <div class="panel-body">
-                        <ul id="files" class="list-group">
-                            {% for data in files %}
-                                {% set file = data[0] %}
-                                {% set index = data[1] %}
-                                {% if 'data' in file %}
-                                    <li class="list-group-item" style="overflow: visible;">
-                        <span class="media-left">
-                            {% set poster_url = file['data'][0][0]['poster_tmdb'] or file['data'][0][0]['Poster'] %}
-                            <img class="media-object" style="height: 250px; width: 180px; padding: 2px;"
-                                 src="{{ poster_url }}">
-                        </span>
-
-                                        <div class="media-body" style="overflow: visible;">
-                                            <div class="list-group-item-heading">
-                                                <h4>{{ file['file'] }}</h4>
-                                            </div>
-                                            <div class="pull-right">
-                                <span class="label label-info">{% if file['data'][0][0]['MovieKind']== 'episode' %}TV
-                                    Series{% else %}Movie{% endif %}</span>
-                                                <span class="label label-info">{{ file['data'][0][0]['Runtime'] }}</span>
-                                                {% set genres = file['data'][0][0]['Genre'].split(', ') %}
-                                                {% for genre in genres %}
-                                                    <span class="label label-info">{{ genre }}</span>
-                                                {% endfor %}
-                                            </div>
-
-                                            <div class="list-group-item-heading">
-                                                <h4>
-                                                    <a href="http://www.imdb.com/title/tt{{ "%07d" % file['data'][0][0]['IDMovieImdb']|int }}"
-                                                       target="_blank">
-                                                        {{ file['data'][0][0]['Title'] }}
-                                                    </a>
-                                                    <small>{{ file['data'][0][0]['Year'] }}</small>
-                                                </h4>
-                                            </div>
-
-                                            <p class="list-group-item-text">
-                                                {{ file['data'][0][0]['Plot'] }}</p>
-                                            <b>Cast: </b> {{ file['data'][0][0]['Actors'] }} <br>
-                                            <!-- Split button -->
-                                            <div class="pull-right btn-group">
-                                                <a href="{{ file['data'][0][0]['SubDownload'][0] }}"
-                                                   type="button"
-                                                   class="btn btn-success">Download</a>
-                                                {% if file['data'][0][0]['SubDownload']|length > 1 %}
-                                                    <button type="button" class="btn btn-success dropdown-toggle"
-                                                            data-toggle="dropdown"
-                                                            aria-haspopup="true" aria-expanded="false">
-                                                        <span class="caret"></span>
-                                                        <span class="sr-only">Toggle Dropdown</span>
-                                                    </button>
-                                                    <ul class="dropdown-menu">
-                                                        {% for subtitles in file['data'][0][0]['SubDownload'] %}
-                                                            <li>
-                                                                {% if loop.index != 1 %}
-                                                                    <a target="_blank" href="{{ subtitles }}">Subtitle
-                                                                        #{{ loop.index }}</a>
-                                                                {% endif %}
-                                                            </li>
-                                                        {% endfor %}
-                                                    </ul>
-                                                {% endif %}
-                                            </div>
-                                        </div>
-                                        {#
-                            <div ng-show="file['data'].length > 1" role="alert">
-                                <div>
-                                <span class="glyphicon glyphicon-exclamation-sign pull-left"
-                                      style="font-size: 45px;"></span>
-                                    <span class="sr-only">Error:</span>
-
-                                    <div class="text-center">
-                                        <h5>The system is not very sure about this file. Download from the one you
-                                            think is
-                                            correct.</h5>
-                                        <a href ng-class="{disabled:file['data'][0-1] == null}"
-                                           ng-click="0 = 0 - 1"
-                                           class="btn btn-default"><span class="glyphicon glyphicon-chevron-left"
-                                                                         aria-hidden="true"></span></a>
-                                        <a href ng-class="{disabled:file['data'][0+1] == null}"
-                                           ng-click="0 = 0 + 1"
-                                           class="btn btn-default"><span class="glyphicon glyphicon-chevron-right"
-                                                                         aria-hidden="true"></span></a>
-                                    </div>
-                                </div>
-                            </div>
-                                         #}
-                                    </li>
-                                {% else %}
-                                    <li class="list-group-item list-group-item-danger">
-                                        <div class="list-group-item-heading">
-                                            <h4>{{ file['file'] }}</h4>
-                                        </div>
-                                        {{ file['error'] }}
-                                    </li>
-                                {% endif %}
-                            {% endfor %}
-                        </ul>
+                    <div class="pull-right">
+                      <span class="label label-info">{% if data[0]['MovieKind']== 'episode' %}
+                      TV
+                      Series{% else %}Movie{% endif %}</span>
+                      <span class="label label-info">{{ data[0]['Runtime'] }}</span>
+                      {% set genres = data[0]['Genre'].split(', ') %}
+                      {% for genre in genres %}
+                      <span class="label label-info">{{ genre }}</span>
+                      {% endfor %}
                     </div>
-                </div>
-            {% endif %}
+                    <div class="list-group-item-heading">
+                      <h4>
+                        <a href="http://www.imdb.com/title/tt{{ "%07d" % data[0]['IDMovieImdb']|int }}"
+                        target="_blank">
+                        {{ data[0]['Title'] }}
+                        </a>
+                        <small>{{ data[0]['Year'] }}</small>
+                      </h4>
+                    </div>
+                    <p class="list-group-item-text">
+                      {{ data[0]['Plot'] }}
+                    </p>
+                    <b>Cast: </b> {{ data[0]['Actors'] }} <br>
+                    <!-- Split button -->
+                    <div class="pull-right btn-group">
+                      <a href="{{ data[0]['SubDownload'][0] }}"
+                        type="button"
+                        class="btn btn-success">Download</a>
+                      {% if data[0]['SubDownload']|length > 1 %}
+                      <button type="button" class="btn btn-success dropdown-toggle"
+                        data-toggle="dropdown"
+                        aria-haspopup="true" aria-expanded="false">
+                      <span class="caret"></span>
+                      <span class="sr-only">Toggle Dropdown</span>
+                      </button>
+                      <ul class="dropdown-menu">
+                        {% for subtitles in data[0]['SubDownload'] %}
+                        <li>
+                          {% if loop.index != 1 %}
+                          <a target="_blank" href="{{ subtitles }}">Subtitle
+                          #{{ loop.index }}</a>
+                          {% endif %}
+                        </li>
+                        {% endfor %}
+                      </ul>
+                      {% endif %}
+                    </div>
+                  </div>
+                  {% if data_length > 1 %}
+                  <div role="alert">
+                    <span class="glyphicon glyphicon-exclamation-sign pull-left"
+                      style="font-size: 45px;"></span>
+                    <span class="sr-only">Error:</span>
+                    <div class="text-center">
+                      <h5>The system is not very sure about this file. Download from the one you think is correct. </h5>
+                      <a class="btn btn-default previous-file-item disabled"
+                        onclick="previousListItem({{ index }}, {{ loop.index }}, {{ data_length }})">
+                      <span class="glyphicon glyphicon-chevron-left"
+                        aria-hidden="true"></span>
+                      </a>
+                      <a class="btn btn-default next-file-item"
+                        onclick="nextListItem({{ index }}, {{ loop.index }}, {{ data_length }})">
+                      <span class="glyphicon glyphicon-chevron-right"
+                        aria-hidden="true"></span>
+                      </a>
+                    </div>
+                  </div>
+                  {% endif %}
+                </li>
+                {% endfor %}
+                {% else %}
+                <li class="list-group-item list-group-item-danger">
+                  <div class="list-group-item-heading">
+                    <h4>{{ file['file'] }}</h4>
+                  </div>
+                  {{ file['error'] }}
+                </li>
+                {% endif %}
+                {% endfor %}
+              </ul>
+            </div>
+          </div>
+          {% endif %}
         </div>
+      </div>
     </div>
-</div>
-<div id="stop-affix"></div>
-<hr>
-<div class="container">
-    <div class="container-fluid api-credit">
+    <div id="stop-affix"></div>
+    <hr>
+    <div class="container">
+      <div class="container-fluid api-credit">
         <h3 class="api-credit-heading text-center">Powered by</h3>
-
         <div class="text-center">
-            <a href="http://opensubtitles.org" target="_blank"><img height="60" width="200"
-                                                                    src="../static/opensubtitles.png"></a>
-            <span class="vertical-line"></span>
-            <a href="http://themoviedb.com" target="_blank"><img height="80" width="220"
-                                                                 src="../static/moviedb.svg"></a>
+          <a href="http://opensubtitles.org" target="_blank"><img height="60" width="200"
+            src="../static/opensubtitles.png"></a>
+          <span class="vertical-line"></span>
+          <a href="http://themoviedb.com" target="_blank"><img height="80" width="220"
+            src="../static/moviedb.svg"></a>
         </div>
-    </div>
-    <footer>
+      </div>
+      <footer>
         <hr>
         <p>
-            <a href="http://github.com/raghavpro/sub-finder" target="_blank" class="btn btn-sm btn-info">Made with <i
-                    class="fa fa-heart"></i> by
-                Raghav</a>
+          <a href="http://github.com/raghavpro/sub-finder" target="_blank" class="btn btn-sm btn-info">Made with <i
+            class="fa fa-heart"></i> by
+          Raghav</a>
         </p>
-    </footer>
-</div>
-
-<!-- Latest compiled and minified JavaScript -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"
-        integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS"
-        crossorigin="anonymous"></script>
-<script src="../static/js/chosen.jquery.min.js"></script>
-<script src="../static/js/custom.js"></script>
-</body>
+      </footer>
+    </div>
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"
+      integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS"
+      crossorigin="anonymous"></script>
+    <script src="../static/js/chosen.jquery.min.js"></script>
+    <script src="../static/js/custom.js"></script>
+  </body>
 </html>
