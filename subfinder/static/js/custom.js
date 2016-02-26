@@ -208,9 +208,10 @@ function nextListItem(index_in_ul, index_in_li, totalItems) {
     $("#file-" + index_in_ul + "-" + index_in_li).addClass("hidden");
     nextLiElement.removeClass("hidden");
 
-    if (next_index > 1 && next_index < totalItems) {
+    if (next_index > 1) {
         nextLiElement.find(".previous-file-item").removeClass("disabled");
-    } else {
+    }
+    if (next_index == totalItems) {
         nextLiElement.find(".next-file-item").addClass("disabled");
     }
 }
@@ -235,9 +236,10 @@ function previousListItem(index_in_ul, index_in_li, totalItems) {
     $("#file-" + index_in_ul + "-" + index_in_li).addClass("hidden");
     previousLiElement.removeClass("hidden");
 
-    if (previous_index > 1 && previous_index < totalItems) {
+    if (previous_index < totalItems) {
         previousLiElement.find(".next-file-item").removeClass("disabled");
-    } else {
+    }
+    if (previous_index == 1) {
         previousLiElement.find(".previous-file-item").addClass("disabled");
     }
 }
