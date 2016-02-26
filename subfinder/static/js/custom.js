@@ -188,3 +188,56 @@ function updateProgressBar() {
     if (newWidth == parentWidth)
         progressBar.removeClass("active");
 }
+
+/**
+ * Opensubtitles db is messed up with wrong data. So wrong that there can be times when it returns 2 different imdb
+ * ids for one hash. In case something like that happens, we give user an option to browse the other imdb id(s).
+ * This function implements the functionality to view the next imdbId.
+ *
+ * By imdbId here I mean movie or episode.
+ * By hash I mean the file user browsed.
+ *
+ * @param index_in_ul index of the hash in whole list
+ * @param index_in_li index of imdbId for one hash.
+ * @param totalItems Total number of imdbIds returned by db for that one hash.
+ */
+function nextListItem(index_in_ul, index_in_li, totalItems) {
+    var next_index = index_in_li + 1;
+    var nextLiElement = $("#file-" + index_in_ul + "-" + next_index);
+
+    $("#file-" + index_in_ul + "-" + index_in_li).addClass("hidden");
+    nextLiElement.removeClass("hidden");
+
+    if (next_index > 1 && next_index < totalItems) {
+        nextLiElement.find(".previous-file-item").removeClass("disabled");
+    } else {
+        nextLiElement.find(".next-file-item").addClass("disabled");
+    }
+}
+
+
+/**
+ * Opensubtitles db is messed up with wrong data. So wrong that there can be times when it returns 2 different imdb
+ * ids for one hash. In case something like that happens, we give user an option to browse the other imdb id(s).
+ * This function implements the functionality to view the previous imdbId.
+ *
+ * By imdbId here I mean movie or episode.
+ * By hash I mean the file user browsed.
+ *
+ * @param index_in_ul index of the hash in whole list
+ * @param index_in_li index of imdbId for one hash.
+ * @param totalItems Total number of imdbIds returned by db for that one hash.
+ */
+function previousListItem(index_in_ul, index_in_li, totalItems) {
+    var previous_index = index_in_li - 1;
+    var previousLiElement = $("#file-" + index_in_ul + "-" + previous_index);
+
+    $("#file-" + index_in_ul + "-" + index_in_li).addClass("hidden");
+    previousLiElement.removeClass("hidden");
+
+    if (previous_index > 1 && previous_index < totalItems) {
+        previousLiElement.find(".next-file-item").removeClass("disabled");
+    } else {
+        previousLiElement.find(".previous-file-item").addClass("disabled");
+    }
+}
