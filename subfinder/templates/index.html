@@ -10,6 +10,11 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="../static/css/bootstrap-chosen.min.css" type="text/css">
     <title>SubFinder - Download synced subtitles</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"
+      integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS"
+      crossorigin="anonymous"></script>
+    <script src="../static/js/chosen.jquery.min.js"></script>
   </head>
   <body>
     <header>
@@ -24,7 +29,7 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="#">Subfinder</a>
+            <a class="navbar-brand" href="/">Subfinder</a>
           </div>
           <!-- Collect the nav links, forms, and other content for toggling -->
           <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
@@ -35,7 +40,7 @@
               <li><a href="http://twitter.com/vahgaR_" style="padding: 7px 0 7px 15px" target="_blank">
                 <i style="font-size: 36px;" class="fa fa-twitter"></i></a>
               </li>
-              <li><a href="http://raghavpro.com" style="padding: 7px 0 7px 15px" target="_blank">
+              <li><a href="http://raghavsharma.me" style="padding: 7px 0 7px 15px" target="_blank">
                 <i style="font-size: 36px;" class="fa fa-internet-explorer"></i></a>
               </li>
             </ul>
@@ -43,32 +48,6 @@
         </div>
       </nav>
     </header>
-    <div class="container">
-      <div class="col-md-12" id="subfinder-info">
-        <div class="download-steps">
-          <p class="lead">Download subtitles which were made just for your file!</p>
-          <h4>1. Select language</h4>
-          <h4>2. Browse video files</h4>
-          <h4>3. Download</h4>
-        </div>
-        <div>
-          <p class="lead">How it works?</p>
-          <em>
-          We calculate a special hash function from the provided video file. Which gets used to match against the
-          subtitle
-          file in the database.
-          The video file name does not play any role in this process.<br>
-          Although most of the time you will get a perfectly synchronized subtitle for your file sometimes our
-          ranking
-          algorithm can go wrong. In case that happens just choose a different file from the download dropdown.
-          </em>
-          <br><br>
-          <em>Read more on hash functions <a href="http://en.wikipedia.org/wiki/Hash_function"
-            target="_blank">here</a>.</em>
-        </div>
-      </div>
-    </div>
-    <hr>
     <div class="container-fluid">
       <div class="row">
         <div class="col-xs-12 col-md-4" id="sidebar">
@@ -88,6 +67,12 @@
                 {% endfor %}
                 </select>
               </div>
+                  <script>
+    //init chosen on language search box
+    $('#lang-search').chosen({
+        width: '170px'
+    });
+      </script>
               <br>
               <span class="btn btn-default btn-file">
               <i class="fa fa-file-movie-o"></i>
@@ -221,6 +206,31 @@
               </ul>
             </div>
           </div>
+          {% else %}
+              <div class="download-steps">
+                  <p class="lead">Download subtitles which were made just for your file!</p>
+                  <h4>1. Select language</h4>
+                  <h4>2. Browse video files</h4>
+                  <h4>3. Download</h4>
+              </div>
+              <div>
+                  <p class="lead">How it works?</p>
+                  <em>
+                      We calculate a special hash function from the provided video file. Which gets used to match
+                      against the
+                      subtitle
+                      file in the database.
+                      The video file name does not play any role in this process.<br>
+                      Although most of the time you will get a perfectly synchronized subtitle for your file sometimes
+                      our
+                      ranking
+                      algorithm can go wrong. In case that happens just choose a different file from the download
+                      dropdown.
+                  </em>
+                  <br><br>
+                  <em>Read more on hash functions <a href="http://en.wikipedia.org/wiki/Hash_function"
+                                                     target="_blank">here</a>.</em>
+              </div>
           {% endif %}
         </div>
       </div>
@@ -233,7 +243,7 @@
         <div class="text-center">
           <a href="http://opensubtitles.org" target="_blank"><img height="60" width="200"
             src="../static/opensubtitles.png"></a>
-          <span class="vertical-line"></span>
+          <span class="hidden-xs vertical-line"></span>
           <a href="http://themoviedb.com" target="_blank"><img height="80" width="220"
             src="../static/moviedb.svg"></a>
         </div>
@@ -247,12 +257,6 @@
         </p>
       </footer>
     </div>
-    <!-- Latest compiled and minified JavaScript -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"
-      integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS"
-      crossorigin="anonymous"></script>
-    <script src="../static/js/chosen.jquery.min.js"></script>
     <script src="../static/js/custom.js"></script>
   </body>
 </html>

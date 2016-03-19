@@ -24,10 +24,6 @@ $(function () {
         $('.file-info-area').removeClass("col-md-offset-4");
     });
 
-    //init chosen on language search box
-    $('#lang-search').chosen({
-        width: '170px'
-    });
 });
 
 function init() {
