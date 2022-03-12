@@ -11,7 +11,7 @@ all_languages = {'Arabic': 'ara', 'Bulgarian': 'bul', 'Dutch': 'dut', 'English':
 
 def _get_imdb_data(imdb_id):
     imdb_id = "tt" + "%07d" % int(imdb_id)
-    payload = {"i": imdb_id}
+    payload = {"i": imdb_id, "apikey": app.config['OMDB_API_KEY']}
     r = requests.get("http://www.omdbapi.com", params=payload)
     imdb_data = r.json()
     return imdb_data
