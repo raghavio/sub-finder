@@ -68,3 +68,4 @@ target/
 bin/
 include/
 pip-selfcheck.json
+.vercel

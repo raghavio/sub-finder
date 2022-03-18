@@ -22,13 +22,12 @@
 import collections
 import operator
 import itertools
-import xmlrpclib
+import xmlrpc.client
 import logging
-from subfinder import app
 
-SERVER_URL = "http://api.opensubtitles.org/xml-rpc"
+SERVER_URL = "https://api.opensubtitles.org:443/xml-rpc"
 
-server = xmlrpclib.Server(SERVER_URL)
+server = xmlrpc.client.ServerProxy(SERVER_URL)
 
 
 # This is our custom rating algorithm, to find the best suitable sub
@@ -57,14 +56,14 @@ def search_sub(data, token):
         result = server.SearchSubtitles(token, data)
 
         if result['status'] != "200 OK":
-            print ("Server returned: '" + result['status'] + "' while \
+            print("Server returned: '" + result['status'] + "' while \
                         searching for sub")
             return None
 
         data = result['data']
 
         if not data:
-            print ("Couldn't find subtitle for this file.")
+            print("Couldn't find subtitle for this file.")
             return None
 
         # Gets the two most common movie from result by matching
@@ -119,9 +118,9 @@ def logout(token):
         logging.error("An error occurred while logging out: %s" % e)
 
 
-def login(lang="eng", username="", password=""):
+def login(api_key, lang="eng", username="", password=""):
     try:
-        result = server.LogIn(username, password, lang, app.config['OPENSUBTITLES_API_KEY'])
+        result = server.LogIn(username, password, lang, api_key)
         return result
     except Exception as e:
         logging.error("An error occurred while logging in: %s" % e)

@@ -1,7 +1,10 @@
+from flask import Flask
 from flask import render_template, request, json, Response
-from subfinder import app
 import opensubtitles
 import requests
+
+app = Flask(__name__)
+app.config.from_pyfile("settings.cfg")
 
 all_languages = {'Arabic': 'ara', 'Bulgarian': 'bul', 'Dutch': 'dut', 'English': 'eng', 'French': 'fre',
                  'German': 'ger',
@@ -26,7 +29,7 @@ def _get_tmdb_data(imdb_id):
 
 def _get_poster_url_from_tmdb(tmdb_data, width):
     image_path = None
-    for key, value in tmdb_data.iteritems():
+    for key, value in tmdb_data.items():
         for data in value:
             if 'poster_path' or 'still_path' in data:
                 image_path = data.get('poster_path') or data.get('still_path')
@@ -53,7 +56,7 @@ def index():
         language = request.form['language']  # language user selected
         data = form_data['data']
 
-        token = opensubtitles.login().get('token')  # Create session
+        token = opensubtitles.login(api_key=app.config['OPENSUBTITLES_API_KEY']).get('token')  # Create session
 
         def files(data):
             for i, fileData in enumerate(data):

@@ -59,7 +59,7 @@
               <div style="margin-bottom: 5px;">
                 <select class="form-control" title="Language" id="lang-search" name="language"
                   form="hash_data_form">
-                {% for language, lang_short in languages.iteritems() %}
+                {% for language, lang_short in languages.items() %}
                 <option value="{{ lang_short }}"
                 {% if lang_short == selected_language %}selected="selected"{% endif %}>
                 {{ language }}
@@ -241,17 +241,17 @@
       <div class="container-fluid api-credit">
         <h3 class="api-credit-heading text-center">Powered by</h3>
         <div class="text-center">
-          <a href="http://opensubtitles.org" target="_blank"><img height="60" width="200"
+          <a href="https://opensubtitles.org" target="_blank"><img height="60" width="200"
             src="../static/opensubtitles.png"></a>
           <span class="hidden-xs vertical-line"></span>
-          <a href="http://themoviedb.com" target="_blank"><img height="80" width="220"
+          <a href="https://themoviedb.org" target="_blank"><img height="80" width="220"
             src="../static/moviedb.svg"></a>
         </div>
       </div>
       <footer>
         <hr>
         <p>
-          <a href="http://github.com/raghavpro/sub-finder" target="_blank" class="btn btn-sm btn-info">Made with <i
+          <a href="http://github.com/raghavio/sub-finder" target="_blank" class="btn btn-sm btn-info">Made with <i
             class="fa fa-heart"></i> by
           Raghav</a>
         </p>
